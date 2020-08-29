@@ -72,11 +72,11 @@ def train(dataset, args):
         args.num_layers)
     collator = sampler_module.PinSAGECollator(neighbor_sampler, g, item_ntype, textset)
     dataloader = DataLoader(
-        batch_sampler,
+        dataset=batch_sampler,
         collate_fn=collator.collate_train,
         num_workers=args.num_workers)
     dataloader_test = DataLoader(
-        torch.arange(g.number_of_nodes(item_ntype)),
+        dataset=torch.arange(g.number_of_nodes(item_ntype)),
         batch_size=args.batch_size,
         collate_fn=collator.collate_test,
         num_workers=args.num_workers)
